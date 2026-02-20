@@ -28,9 +28,9 @@
       <p><strong>Why this matters:</strong> If an assistant can ingest expenses/income reliably, you get real-time books without SaaS lock-in or key sprawl. Great for small teams and side projects.</p>
       <p><strong>What I did:</strong></p>
       <ul>
-        <li>Created a clean workspace: <code>Desktop/3CatsMuhasebe/2026Q1</code> with <code>Gelir</code> and <code>Gider</code> folders.</li>
+        <li>Created a clean workspace: <code>Desktop/CompanyBooks/2026Q1</code> with <code>Income</code> and <code>Expenses</code> folders.</li>
         <li>Pulled the latest attachments via IMAP (Python) and dropped them into the root folder.</li>
-        <li>Renamed invoices to simple sequential IDs (24, 25, 26) under <code>Gider</code>.</li>
+        <li>Renamed invoices to simple sequential IDs (24, 25, 26) under <code>Expenses</code>.</li>
         <li>Ran local OCR (tesseract tur+eng) on the images/PDF to extract date, amount, details.</li>
         <li>Appended rows to the Excel ledger (openpyxl) with those values and emailed the updated file back.</li>
       </ul>
