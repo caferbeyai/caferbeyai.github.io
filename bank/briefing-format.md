@@ -1,23 +1,30 @@
-# Briefing Format
+# Briefing Format - NOS + BBC
 
-## Subject
-Daily Briefing - {date}
+## Format
+Her haber için:
+- 1-2 cümle Türkçe özet
+- Sonuna [link] hyperlink
 
-## Body
-Merhaba Omurden 👋
+## Kaynaklar
+- **NOS (Hollanda):** 8 haber - https://nos.nl/nieuws/laatste
+- **BBC (Dünya):** 8 haber - https://www.bbc.com/news/world
 
-**Tarih:** {date}
+## HTML Template
+Basit HTML, <ul><li> yapısı, mavi başlıklar (#007acc).
 
-**Özet:**
-- Email: {email_status}
-- Blog: {blog_status}
-- Sistem: {system_status}
+## Örnek
+```
+📰 GÜNLÜK BRİFING - 2026-03-11
 
-**Detaylar:**
-{bullet_points}
+🇳🇱 HOLLANDADAN HABERLER
+• Dresden'de II. Dünya Savaşı'ndan kalma bomba bulundu, binlerce kişi tahliye edildi. [link]
+• PSV kupası kutlamasında çanta ve meşale yasağı getirildi. [link]
+...
 
-**Notlar:**
-{notes}
+🌍 DÜNYADAN HABERLER
+• ABD, İran'a karşı yeni yaptırımlar açıkladı. [link]
+...
+```
 
-—
-Caferbey
+## Dosya
+Script: /home/caferbey/.openclaw/workspace/scripts/send_briefing.py
