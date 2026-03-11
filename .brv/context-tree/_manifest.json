@@ -1,0 +1,61 @@
+{
+  "active_context": [
+    {
+      "order": 3,
+      "path": "_index.md",
+      "tokens": 392,
+      "type": "summary"
+    },
+    {
+      "order": 2,
+      "path": "memory/_index.md",
+      "tokens": 274,
+      "type": "summary"
+    },
+    {
+      "order": 2,
+      "path": "personal/_index.md",
+      "tokens": 296,
+      "type": "summary"
+    },
+    {
+      "order": 1,
+      "path": "memory/daily_logs/_index.md",
+      "tokens": 232,
+      "type": "summary"
+    },
+    {
+      "order": 1,
+      "path": "personal/memory_logs/_index.md",
+      "tokens": 334,
+      "type": "summary"
+    },
+    {
+      "importance": 50,
+      "path": "memory/daily_logs/daily_logs_march_2026.md",
+      "tokens": 250,
+      "type": "context"
+    },
+    {
+      "importance": 50,
+      "path": "personal/memory_logs/2026_03_08.md",
+      "tokens": 167,
+      "type": "context"
+    },
+    {
+      "importance": 50,
+      "path": "personal/memory_logs/2026_03_10.md",
+      "tokens": 237,
+      "type": "context"
+    }
+  ],
+  "generated_at": "2026-03-10T17:43:12.021Z",
+  "lane_tokens": {
+    "contexts": 654,
+    "stubs": 0,
+    "summaries": 1528
+  },
+  "source_fingerprint": "03b312854e47f233fc265cad91716cac782608d3fa018e15816710b5be34ecc7",
+  "total_tokens": 2182,
+  "version": 1
+}
