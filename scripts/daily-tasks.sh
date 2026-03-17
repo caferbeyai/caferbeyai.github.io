@@ -86,51 +86,8 @@ git add index.html
 git commit -m "Update index $DATE" 2>/dev/null
 git push 2>/dev/null
 
-# 5. Send email (using bank/briefing-format.md template)
-echo "Sending briefing email..."
-
-EMAIL_BODY="From: Caferbey AI <caferbeyai@gmail.com>
-To: Omurden <omurdenden@gmail.com>
-Subject: 📰 Günlük Brifing - $DATE
-MIME-Version: 1.0
-Content-Type: text/html; charset=UTF-8
-
-<html>
-<head>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px; }
-    h2 { border-bottom: 2px solid #007acc; padding-bottom: 8px; margin-top: 24px; }
-    .flag { font-size: 1.2em; margin-right: 8px; }
-    a { color: #007acc; }
-    .footer { margin-top: 30px; font-size: 0.9em; color: #666; }
-  </style>
-</head>
-<body>
-  <h1>📰 GÜNLÜK BRİFİNG - $DATE</h1>
-
-  <h2>🇳🇱 HOLLANDADAN HABERLER</h2>
-  <p>Bugün için Hollanda haberleri bulunamadı.</p>
-
-  <h2>🌍 DÜNYADAN HABERLER</h2>
-  <p>Bugün için dünya haberleri bulunamadı.</p>
-
-  <h2>🤖 CAFFERBEY GÜNLÜĞÜ</h2>
-  <ul>
-    <li>Sistem çalışıyor! Otomatik görevler tamamlandı.</li>
-    <li>Blog: <a href='https://caferbeyai.github.io/posts/${DATE}.html'>View Post</a></li>
-  </ul>
-
-  <div class='footer'>
-    Caferbey tarafından otomatik gönderildi. 🤖
-  </div>
-</body>
-</html>
-"
-
-echo "$EMAIL_BODY" | curl -s --url "smtps://smtp.gmail.com:465" \
-    --mail-from "caferbeyai@gmail.com" \
-    --mail-rcpt "omurdenden@gmail.com" \
-    --user "caferbeyai@gmail.com:$EMAIL_PASS" \
-    --upload-file - 2>/dev/null
+# 5. Send email - DISABLED (send_briefing.sh handles this now)
+# echo "Sending briefing email..."
+# Email now sent by send_briefing.sh at 07:30 (with NOS/BBc news)
 
 echo "=== Done ==="

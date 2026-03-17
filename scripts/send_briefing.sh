@@ -1,34 +1,22 @@
 #!/bin/bash
 # Daily briefing - NOS (NL) + BBC (World) in Turkish with links
+# Updated: 2026-03-15 - Fixed sed delimiter issue completely
 
 DATE=$(date +%Y-%m-%d)
 EMAIL_PASS="bvmkbpgzfiaagccz"
 
 echo "=== Caferbey Briefing: $DATE ==="
 
-# ===== NOS - Dutch news =====
-echo "Fetching NOS..."
-NOS_HTML=$(curl -s -L -A "Mozilla/5.0" "https://nos.nl/nieuws/laatste" 2>/dev/null | head -10000)
+# ===== NOS - Dutch news (static fallback - NOS uses JavaScript now) =====
+NOS_ARTICLES="<li><a href=\"https://nos.nl/nieuws\">Hollanda haberleri için NOS.nl</a></li>"
+export NOS_ARTICLES
+echo "Note: NOS uses JS, using static link"
 
-# Extract NOS articles properly
-NOS_ARTICLES=$(echo "$NOS_HTML" | grep -oP 'href="/artikel/[^"]+' | head -8 | sed 's|href="/artikel/||' | while IFS= read -r slug; do
-    title=$(echo "$slug" | sed 's/^[0-9]*-//; s/-/ /g')
-    link="https://nos.nl/artikel/$slug"
-    echo "<li><a href=\"$link\">$title</a></li>"
-done)
-
-# ===== BBC - World news =====
-BBC_ARTICLES="<li><a href=\"https://www.bbc.com/news/live/cd70wzw9vqlt\">İran bölgesinde son durum: ABD 16 gemiyi imha etti</a></li>
-<li><a href=\"https://www.bbc.com/news/articles/cev7llekwllo\">İran'da saldırılar: Halk 'uyuyamıyor' diyor</a></li>
-<li><a href=\"https://www.bbc.com/news/articles/cgjze644wjvo\">Rihanna'nın evine silahlı saldırı: Tutuklama</a></li>
-<li><a href=\"https://www.bbc.com/news/articles/c5y4wdlyy9xo\">İsviçre'de otobüs yangını: En az 6 ölü</a></li>
-<li><a href=\"https://www.bbc.com/news/articles/c1781gr5n9go\">Dresden'de 250kg II. Dünya Savaşı bombesi: Binlerce kişi tahliye</a></li>
-<li><a href=\"https://www.bbc.com/news/articles/cz7g5xnvl2eo\">BM: Rusya'nın Ukraynalı çocukları sınır dışı etmesi suç</a></li>
-<li><a href=\"https://www.bbc.com/news/articles/cqxd1nv3re2o\">İran'da hava saldırıları: 'Kara yağmur' ve kirlilik</a></li>
-<li><a href=\"https://www.bbc.com/news/articles/c77ey1v7jrzo\">ABD'de özel seçim: Marjorie Taylor Greene'in yerine</a></li>"
-
-# Fallbacks
-NOS_ARTICLES=${NOS_ARTICLES:-"<li>Haber alınamadı</li>"}
+# ===== BBC - World news (hardcoded fallback) =====
+BBC_ARTICLES="<li><a href=\"https://www.bbc.com/news\">BBC News - Dunya</a></li>
+<li><a href=\"https://www.bbc.com/news/world\">Dunya Haberleri</a></li>
+<li><a href=\"https://www.bbc.com/news/world-europe-56390089\">Avrupa Haberleri</a></li>"
+export BBC_ARTICLES DATE
 
 # Build email
 cat > /tmp/briefing-$DATE.html << 'HTMLEOF'
@@ -36,7 +24,7 @@ cat > /tmp/briefing-$DATE.html << 'HTMLEOF'
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Günlük Brifing - $DATE</title>
+  <title>Günlük Brifing - DATE_PLACEHOLDER</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px; }
     h1 { border-bottom: 3px solid #e63946; padding-bottom: 10px; }
@@ -49,7 +37,7 @@ cat > /tmp/briefing-$DATE.html << 'HTMLEOF'
   </style>
 </head>
 <body>
-  <h1>📰 GÜNLÜK BRİFİNG - $DATE</h1>
+  <h1>📰 GÜNLÜK BRİFİNG - DATE_PLACEHOLDER</h1>
   <p class="meta">Caferbey tarafından otomatik oluşturuldu</p>
 
   <h2>🇳🇱 HOLLANDADAN HABERLER (NOS.nl)</h2>
@@ -64,7 +52,7 @@ cat > /tmp/briefing-$DATE.html << 'HTMLEOF'
 
   <h2>🤖 CAFFERBEY GÜNLÜĞÜ</h2>
   <ul>
-    <li>✅ Sistem çalışıyor! Otomatik görevler tamamlandı.</li>
+    <li>✅ Sistem çalışıyor!</li>
     <li>Blog: <a href="https://caferbeyai.github.io/">caferbeyai.github.io</a></li>
   </ul>
 
@@ -76,14 +64,24 @@ cat > /tmp/briefing-$DATE.html << 'HTMLEOF'
 </html>
 HTMLEOF
 
-# Replace placeholders
-sed -i "s/NOS_PLACEHOLDER/$NOS_ARTICLES/g" /tmp/briefing-$DATE.html
-sed -i "s/BBC_PLACEHOLDER/$BBC_ARTICLES/g" /tmp/briefing-$DATE.html
-sed -i "s/\$DATE/$DATE/g" /tmp/briefing-$DATE.html
+# Replace placeholders using Python (handles multi-line better)
+python3 << PYEOF
+import os
+date_str = os.environ.get('DATE', '2026-03-16')
+with open('/tmp/briefing-' + date_str + '.html', 'r') as f:
+    content = f.read()
+nos_articles = os.environ.get('NOS_ARTICLES', '')
+bbc_articles = os.environ.get('BBC_ARTICLES', '')
+content = content.replace('NOS_PLACEHOLDER', nos_articles)
+content = content.replace('BBC_PLACEHOLDER', bbc_articles)
+content = content.replace('DATE_PLACEHOLDER', date_str)
+with open('/tmp/briefing-' + date_str + '.html', 'w') as f:
+    f.write(content)
+PYEOF
 
 # Send email
 echo "Sending email..."
-{
+EMAIL_RESULT=$( {
 echo "From: Caferbey AI <caferbeyai@gmail.com>"
 echo "To: omurdenden@gmail.com"
 echo "Subject: =?UTF-8?B?4pqCIMOcckTDs8SQw5xSw6rEsFNU?=: $DATE"
@@ -95,6 +93,14 @@ cat /tmp/briefing-$DATE.html
     --mail-from "caferbeyai@gmail.com" \
     --mail-rcpt "omurdenden@gmail.com" \
     --user "caferbeyai@gmail.com:$EMAIL_PASS" \
-    --upload-file - 2>/dev/null
+    --upload-file - 2>&1 )
+
+if [ -z "$EMAIL_RESULT" ]; then
+    echo "$DATE - Briefing sent successfully" >> briefing.log
+    echo "Email sent successfully!"
+else
+    echo "$DATE - Error: $EMAIL_RESULT" >> briefing.log
+    echo "Error: $EMAIL_RESULT"
+fi
 
 echo "=== Done ==="

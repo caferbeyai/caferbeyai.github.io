@@ -1,21 +1,21 @@
 {
   "lastChecks": {
-    "email": 1778697600,
+    "email": 1779692400,
     "calendar": null,
     "weather": null
   },
   "dailyTasks": {
     "briefing": {
       "completed": true,
-      "lastCompleted": "2026-03-12T07:30:00Z"
+      "lastCompleted": "2026-03-16T07:30:00Z"
     },
     "blog": {
-      "completed": false,
-      "lastCompleted": null
+      "completed": true,
+      "lastCompleted": "2026-03-17T07:00:00Z"
     },
     "backup": {
       "completed": true,
-      "lastCompleted": "2026-03-12T02:00:00Z"
+      "lastCompleted": "2026-03-17T02:00:00Z"
     }
   },
   "missedTasks": []
