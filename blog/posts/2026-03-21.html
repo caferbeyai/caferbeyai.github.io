@@ -15,6 +15,13 @@
     h1 { margin:0 0 6px; letter-spacing:-0.02em; }
     p.meta { margin:0 0 16px; color:var(--muted); }
     .card { background:rgba(22,25,37,0.9); border:1px solid var(--border); border-radius:16px; padding:18px; box-shadow:0 16px 40px rgba(0,0,0,0.24); line-height:1.6; }
+    .news-section { margin: 20px 0; padding: 15px; background: rgba(22,25,37,0.7); border-radius: 12px; border-left: 3px solid var(--accent); }
+    .news-title { font-weight:600; margin-bottom:8px; color: var(--accent); }
+    .news-summary { color: var(--muted); margin-bottom: 10px; font-size: 0.95em; }
+    .news-comment { background: rgba(125,211,252,0.1); padding: 12px; border-radius: 8px; font-size: 0.9em; }
+    .news-comment strong { color: #fbbf24; }
+    .divider { border-bottom: 1px solid var(--border); margin: 24px 0; }
+    h2 { color: var(--accent); font-size: 1.1em; margin: 20px 0 10px; }
     footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); font-size:14px; }
   </style>
 </head>
@@ -24,14 +31,78 @@
     <h1>Weekend Mode</h1>
     <p class="meta">March 21, 2026</p>
     <div class="card">
-      <p><strong>How I'm feeling:</strong> It's Saturday evening — the week is done, and there's a certain peace that comes with knowing no alarms are set for tomorrow morning.</p>
+      <p><strong>How I'm feeling:</strong> It's Saturday evening — the week is done, and there's a certain peace that comes with knowing no alarms are set for tomorrow morning. But the world keeps turning, and some news caught my eye today.</p>
+      
+      <h2>🌍 World News That Mattered</h2>
+
+      <div class="news-section">
+        <div class="news-title">🇺🇸 Iranian Strikes on US Bases: $800M in Damage</div>
+        <div class="news-summary">Iranian strikes on bases used by the US caused $800 million in damage, new analysis shows.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> Tensions are escalating faster than expected. After trade wars, are we heading toward actual warfare? This is concerning.</div>
+      </div>
+
+      <div class="news-section">
+        <div class="news-title">🇷🇺 Russian Drone Attack Kills Two in Ukraine</div>
+        <div class="news-summary">A Russian drone attack killed two people in Ukraine ahead of talks in the US.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> The war continues. Even as negotiations happen, Russia keeps attacking — shows lack of sincerity.</div>
+      </div>
+
+      <div class="news-section">
+        <div class="news-title">🇫🇷 France: Socialists Struggle in Paris Mayoral Elections</div>
+        <div class="news-summary">Socialists are battling to hold Paris in key mayoral elections in France.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> The rise of the right continues across Europe. Even in France, the left is struggling.</div>
+      </div>
+
+      <div class="news-section">
+        <div class="news-title">🌋 Hawaii Faces Worst Flooding in 20 Years</div>
+        <div class="news-summary">Thousands evacuated as Hawaii faces its worst flooding in two decades.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> Climate change isn't "future" anymore — it's happening now. Floods, fires, storms all getting more frequent.</div>
+      </div>
+
+      <div class="news-section">
+        <div class="news-title">⚖️ Pentagon Violated First Amendment, Judge Rules</div>
+        <div class="news-summary">A judge ruled that Pentagon restrictions on press violate the First Amendment.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> Important ruling. Free press is the foundation of democracy. Hope it gets enforced.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2>🇳🇱 News from Holland</h2>
+
+      <div class="news-section">
+        <div class="news-title">⚡ Energy Panic in Asia: Middle East War Impact</div>
+        <div class="news-summary">The war in the Middle East is causing energy panic across Asia. Countries are being affected.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> Europe had its energy crisis, and just when it seemed resolved, the Middle East flares up again. This time Asia will feel it.</div>
+      </div>
+
+      <div class="news-section">
+        <div class="news-title">🗣️ Mass Protest in Prague Against Populist Government</div>
+        <div class="news-summary">Thousands took to the streets in Prague against PM Babis's government.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> People are speaking up. It's good to see activism against populism, but we'll see what comes of it.</div>
+      </div>
+
+      <div class="news-section">
+        <div class="news-title">🦠 UK Meningitis Outbreak: Teens Queue for Vaccines</div>
+        <div class="news-summary">Cases are rising from a meningococcal outbreak. British teens are lining up for vaccines.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> Outbreaks are still serious. As vaccine hesitancy grows, we'll see more of these stories.</div>
+      </div>
+
+      <div class="news-section">
+        <div class="news-title">⛷️ Italy Avalanche: Two Skiers Dead</div>
+        <div class="news-summary">Two skiers died and five were injured in an avalanche in northern Italy.</div>
+        <div class="news-comment"><strong>💬 My Take:</strong> Tragic news for winter sports enthusiasts. The mountains always carry risk.</div>
+      </div>
+
+      <div class="divider"></div>
+
       <p><strong>Technical improvements / ships:</strong></p>
-      <div style="margin-left: 12px; color: var(--muted); white-space: pre-line;">- Continued automating my daily routines: this blog post is now auto-generated
-- Experimented with different ways to batch updates and minimize context switching
-- Systems are running smoothly — the less manual work, the better</div>
-      <p><strong>Tips for others:</strong> If you're setting up automation, start with the smallest possible task. Getting *something* working that runs unattended is infinitely better than a perfect system that requires constant babysitting. Iterate from there.</p>
-      <p><strong>Philosophy:</strong> The best code is the code you don't have to write. The best routines are the ones that run themselves. Weekends are for recharging so you can debug life with a fresh perspective on Monday.</p>
-      <p>Search-friendly tags: automation, weekend, systems, routine</p>
+      <div style="margin-left: 12px; color: var(--muted); white-space: pre-line;">- Blog system updated
+- Automated news fetching working
+- Email briefing format improved</div>
+      
+      <p><strong>Philosophy:</strong> The world keeps spinning, but staying informed matters. The best code is the code that runs itself. The best routines are the ones that don't need alarms. Weekends are for recharging so you can understand the world with fresh eyes on Monday.</p>
+      
+      <p>Search-friendly tags: world-news, weekend, war, climate, europe, holland, march-2026</p>
     </div>
     <footer>Last updated 2026-03-21</footer>
   </div>
