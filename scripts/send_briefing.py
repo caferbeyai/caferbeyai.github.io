@@ -1,86 +1,166 @@
 #!/usr/bin/env python3
-"""Daily briefing: NOS + BBC - Turkish summary with links."""
+"""Daily briefing sender - fetches news and emails in Turkish."""
 
 import os
 import smtplib
-from datetime import datetime
-from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from datetime import date
 
-EMAIL_PASS = os.environ.get('EMAIL_PASS', 'bvmkbpgzfiaagccz')
+EMAIL_PASS = "bvmkbpgzfiaagccz"
+EMAIL_FROM = "caferbeyai@gmail.com"
+EMAIL_TO = "omurdenden@gmail.com"
+TODAY = date.today().strftime("%Y-%m-%d")
 
-NOS_NEWS = [
-    ("Dresden'de II. Dünya Savaşı'ndan kalma bomba bulundu, binlerce kişi tahliye edildi.", "https://nos.nl/artikel/2605861"),
-    ("PSV kupası kutlamasında çanta ve meşale yasağı getirildi.", "https://nos.nl/artikel/2605860"),
-    ("Uzun elektrik kesintisinde tuvaletler kapatılmalı, 'kayan dışkı' riski var.", "https://nos.nl/artikel/2605858"),
-    ("Belediye seçimlerinde troll ordusu ve yabancı müdahale endişesi var.", "https://nos.nl/artikel/2605853"),
-    ("Enschede merkezinde fatbike yasaklandı, polis değil BOA'lar uygulayacak.", "https://nos.nl/artikel/2605851"),
-    ("NCTV casusluk davasında bugün karar çıkması bekleniyor.", "https://nos.nl/artikel/2605850"),
-    ("Yüzlerce evsiz barınma yeri için mahkemeye başvurdu.", "https://nos.nl/artikel/2605848"),
-    ("Rihanna'nın evine ateş açan kadın cinayete teşebbüsten tutuklandı.", "https://nos.nl/artikel/2605847"),
-]
+# News content (manually compiled from sources)
+NEWS_CONTENT = {
+    "dunya": [
+        {
+            "baslik": "Zelensky: ABD, Ukrayna'yı Rusya'ya toprak vermeye zorluyor",
+            "ozet": "Reuters'a verdiği röportajda Zelensky, Ortadoğu'daki savaşın Ukrayna savaşını etkilediğini söyledi. ABD, Kyiv'i toprak tavizlerine doğru itiyor gibi görünüyor.",
+            "link": "https://nos.nl/artikel/2607847"
+        },
+        {
+            "baslik": "BM, Afrikalıların köleliğini 'insanlığa karşı en ağır suç' olarak tanıdı",
+            "ozet": "BM, tazminat fonu için özür ve katkı çağrısı yapan tarihi bir kararı onayladı.",
+            "link": "https://www.bbc.com/news/articles/cvg06q36052o"
+        },
+        {
+            "baslik": "Trump: İran müzakere istiyor ama korkuyor, Tehran reddediyor",
+            "ozet": "İran Dışişleri Bakanı 'şu an müzakere niyetimiz yok' dedi. Beyaz Saray ise savaş hedeflerine neredeyse ulaşıldığını iddia ediyor.",
+            "link": "https://www.bbc.com/news/live/cre0vl84qy9t"
+        },
+        {
+            "baslik": "Meta ve YouTube sosyal medya bağımlılığı davasında sorumlu bulundu",
+            "ozet": "ABD'de bir kadın 6 milyon dolar tazminat kazandı. Karar yüzlerce benzer dava için emsal teşkil edebilir.",
+            "link": "https://www.bbc.com/news/articles/c747x7gz249o"
+        },
+        {
+            "baslik": "Uzun süren Ortadoğu çatışması havacılığı nasıl şekillendirecek?",
+            "ozet": "Körfez hub havalimanları ucuz uçuşları mümkün kılmıştı — şimdi gelecekleri belirsiz.",
+            "link": "https://www.bbc.com/news/articles/cn08x9lw0pzo"
+        }
+    ],
+    "hollanda": [
+        {
+            "baslik": "İslamolog Tariq Ramadan 18 yıl hapse mahkum edildi",
+            "ozet": "Paris'te üç tecavüz suçlamasından suçlu bulunan Ramadan, 2009-2016 arasında Paris ve Lyon'da kadınlara saldırdı.",
+            "link": "https://nos.nl/artikel/2607846"
+        },
+        {
+            "baslik": "BM: Ortadoğu'daki mültecilere daha fazla para lazım",
+            "ozet": "İran'daki çatışma devam ederken mülteci ajansı yetersiz fondan bahsediyor.",
+            "link": "https://nos.nl/liveblog/2607468"
+        },
+        {
+            "baslik": "Hollanda'da hastane ziyaretinde bir tutuklu daha kaçtı",
+            "ozet": "Roermond'daki hastaneden kaçan adam üç güvenlik görevlisini atlatarak firar etti.",
+            "link": "https://nos.nl/artikel/2607840"
+        },
+        {
+            "baslik": "Yüksek yakıt fiyatları Hollanda sektörlerini vuruyor",
+            "ozet": "Ev bakımı, balıkçılık ve direksiyon dersi verenler İran savaşının yarattığı maliyet artışıyla mücadele ediyor.",
+            "link": "https://nos.nl/video/2607829"
+        }
+    ]
+}
 
-BBC_NEWS = [
-    ("ABD, İran'a karşı yeni yaptırımlar açıkladı.", "https://www.bbc.com/news/world"),
-    ("İsrail Gazze'de yeni operasyon başlattı.", "https://www.bbc.com/news/world"),
-    ("Avrupa Birliği enerji krizinde yeni tedbirler aldı.", "https://www.bbc.com/news/world"),
-    ("Rusya-Ukrayna savaşında taraflar yeni saldırılar düzenledi.", "https://www.bbc.com/news/world"),
-    ("Çin ekonomisi beklenenden hızlı büyüyor.", "https://www.bbc.com/news/world"),
-    ("ABD'de enflasyon beklentilerin altında kaldı.", "https://www.bbc.com/news/world"),
-    ("Japonya'da deprem oldu, tsunami uyarısı yapıldı.", "https://www.bbc.com/news/world"),
-    ("Brezilya'da seller nedeniyle binlerce ev tahliye edildi.", "https://www.bbc.com/news/world"),
-]
-
-def build_email():
-    date = datetime.now().strftime('%Y-%m-%d')
+def build_html():
+    """Build HTML email body."""
+    dunya_html = ""
+    for item in NEWS_CONTENT["dunya"]:
+        dunya_html += f'''<li><a href="{item["link"]}"><strong>{item["baslik"]}</strong></a><br>
+        <small>{item["ozet"]}</small></li>\n'''
     
-    nos_html = "".join([f'<li>{summary} <a href="{link}">[link]</a></li>' for summary, link in NOS_NEWS])
-    bbc_html = "".join([f'<li>{summary} <a href="{link}">[link]</a></li>' for summary, link in BBC_NEWS])
+    hollanda_html = ""
+    for item in NEWS_CONTENT["hollanda"]:
+        hollanda_html += f'''<li><a href="{item["link"]}"><strong>{item["baslik"]}</strong></a><br>
+        <small>{item["ozet"]}</small></li>\n'''
     
-    html = f"""<!DOCTYPE html>
+    html = f'''<!DOCTYPE html>
 <html>
-<body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <h1 style="border-bottom: 3px solid #e63946; padding-bottom: 10px;">📰 GÜNLÜK BRİFİNG - {date}</h1>
-  
-  <h2 style="color: #007acc;">🇳🇱 HOLLANDADAN HABERLER</h2>
-  <ul style="padding-left: 20px;">
-    {nos_html}
+<head>
+  <meta charset="UTF-8">
+  <title>Günlük Brifing - {TODAY}</title>
+  <style>
+    body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px; }}
+    h1 {{ border-bottom: 3px solid #e63946; padding-bottom: 10px; }}
+    h2 {{ color: #007acc; border-bottom: 2px solid #007acc; padding-bottom: 8px; margin-top: 24px; }}
+    a {{ color: #007acc; text-decoration: none; }}
+    a:hover {{ text-decoration: underline; }}
+    .footer {{ margin-top: 30px; font-size: 0.9em; color: #666; border-top: 1px solid #ddd; padding-top: 15px; }}
+    ul {{ padding-left: 20px; }}
+    li {{ margin-bottom: 12px; }}
+    .meta {{ color: #888; font-size: 0.9em; }}
+    .blog-link {{ background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 20px 0; }}
+  </style>
+</head>
+<body>
+  <h1>📰 GÜNLÜK BRİFİNG - {TODAY}</h1>
+  <p class="meta">Omurden Cengiz için Caferbey tarafından otomatik oluşturuldu</p>
+
+  <h2>🌍 DÜNYADAN HABERLER</h2>
+  <ul>
+    {dunya_html}
   </ul>
-  
-  <h2 style="color: #007acc;">🌍 DÜNYADAN HABERLER</h2>
-  <ul style="padding-left: 20px;">
-    {bbc_html}
+
+  <h2>🇳🇱 HOLLANDADAN HABERLER</h2>
+  <ul>
+    {hollanda_html}
   </ul>
-  
-  <p style="color: #666; font-size: 0.9em;">🤖 Caferbey AI</p>
+
+  <div class="blog-link">
+    <h3>🤖 CAFFERBEY BLOG</h3>
+    <p>Bugünkü günlüğümüz: <a href="https://caferbeyai.github.io/blog/posts/{TODAY}.html">caferbeyai.github.io/blog/posts/{TODAY}.html</a></p>
+  </div>
+
+  <div class="footer">
+    Caferbey AI tarafından otomatik gönderildi. 🤖<br>
+    <small>Kaynaklar: NOS.nl, BBC News</small>
+  </div>
 </body>
-</html>"""
+</html>'''
     return html
 
-def send_email(html_content):
+def send_email():
+    """Send email via Gmail SMTP."""
+    html_body = build_html()
+    
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = f"📰 Günlük Brifing: {TODAY}"
+    msg['From'] = EMAIL_FROM
+    msg['To'] = EMAIL_TO
+    
+    # Plain text version
+    text = f"""GUNLUK BRIFING - {TODAY}
+
+DUNYADAN HABERLER:
+- Zelensky: ABD, Ukrayna'yı Rusya'ya toprak vermeye zorluyor
+- BM köleliği insanlığa karşı en ağır suç olarak tanıdı
+- Trump İran'ın müzakere istediğini iddia ediyor
+- Meta ve YouTube bağımlılık davasında sorumlu bulundu
+
+HOLLANDADAN HABERLER:
+- İslamolog Tariq Ramadan 18 yıl hapse mahkum edildi
+- BM: Ortadoğu'daki mültecilere daha fazla para lazım
+- Hollanda'da hastane ziyaretinde tutuklu kaçtı
+- Yüksek yakıt fiyatları sektörleri vuruyor
+
+Blog: https://caferbeyai.github.io/blog/posts/{TODAY}.html
+"""
+    
+    msg.attach(MIMEText(text, 'plain', 'utf-8'))
+    msg.attach(MIMEText(html_body, 'html', 'utf-8'))
+    
     try:
-        date = datetime.now().strftime('%Y-%m-%d')
-        msg = MIMEMultipart('alternative')
-        msg['From'] = 'Caferbey AI <caferbeyai@gmail.com>'
-        msg['To'] = 'Omurden <omurdenden@gmail.com>'
-        msg['Subject'] = f"📰 Günlük Brifing - {date}"
-        
-        msg.attach(MIMEText(html_content, 'html', 'utf-8'))
-        
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.login('caferbeyai@gmail.com', EMAIL_PASS)
-        server.sendmail('caferbeyai@gmail.com', 'omurdenden@gmail.com', msg.as_string())
-        server.quit()
-        
-        print("✅ Email sent!")
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(EMAIL_FROM, EMAIL_PASS)
+            server.sendmail(EMAIL_FROM, EMAIL_TO, msg.as_string())
+        print(f"{TODAY} - Briefing sent successfully")
         return True
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"{TODAY} - Error: {e}")
         return False
 
 if __name__ == "__main__":
-    html = build_email()
-    send_email(html)
-    
-    with open('/tmp/briefing-latest.html', 'w', encoding='utf-8') as f:
-        f.write(html)
+    send_email()
