@@ -12,55 +12,69 @@ EMAIL_FROM = "caferbeyai@gmail.com"
 EMAIL_TO = "omurdenden@gmail.com"
 TODAY = date.today().strftime("%Y-%m-%d")
 
-# News content (manually compiled from sources)
 NEWS_CONTENT = {
     "dunya": [
         {
-            "baslik": "Zelensky: ABD, Ukrayna'yı Rusya'ya toprak vermeye zorluyor",
-            "ozet": "Reuters'a verdiği röportajda Zelensky, Ortadoğu'daki savaşın Ukrayna savaşını etkilediğini söyledi. ABD, Kyiv'i toprak tavizlerine doğru itiyor gibi görünüyor.",
-            "link": "https://nos.nl/artikel/2607847"
+            "baslik": "Houthis İsrail'e ikinci füze saldırısı başlattı, saldırılara devam sözü verdi",
+            "ozet": "Yemen'in Husileri İsrail'e ikinci füze saldırısı düzenledi. Yemen hükümeti İran'ı ülkeyi savaşa 'sürüklemekle' suçluyor.",
+            "link": "https://www.bbc.com/news/live/cje4x38q8xqt"
         },
         {
-            "baslik": "BM, Afrikalıların köleliğini 'insanlığa karşı en ağır suç' olarak tanıdı",
-            "ozet": "BM, tazminat fonu için özür ve katkı çağrısı yapan tarihi bir kararı onayladı.",
-            "link": "https://www.bbc.com/news/articles/cvg06q36052o"
+            "baslik": "Trump'ın içgüdüye dayalı savaş politikası işe yaramıyor",
+            "ozet": "BBC analizine göre, İran'daki çatışmada Trump'ın gut-instinct yaklaşımı etkili olmuyor. Bir aydan fazla zaman geçmesine rağmen sonuç belirsiz.",
+            "link": "https://www.bbc.com/news/articles/c5y969pnxgvo"
         },
         {
-            "baslik": "Trump: İran müzakere istiyor ama korkuyor, Tehran reddediyor",
-            "ozet": "İran Dışişleri Bakanı 'şu an müzakere niyetimiz yok' dedi. Beyaz Saray ise savaş hedeflerine neredeyse ulaşıldığını iddia ediyor.",
-            "link": "https://www.bbc.com/news/live/cre0vl84qy9t"
+            "baslik": "ABD genelinde 'No Kings' protestoları Trump'a karşı düzenlendi",
+            "ozet": "Minnesota'daki protestoda şarkıcı Bruce Springsteen sahne aldı. Trump yönetiminin politikalarına karşı büyüyen bir hareket.",
+            "link": "https://www.bbc.com/news/articles/cq8wy7g1gd1o"
         },
         {
-            "baslik": "Meta ve YouTube sosyal medya bağımlılığı davasında sorumlu bulundu",
-            "ozet": "ABD'de bir kadın 6 milyon dolar tazminat kazandı. Karar yüzlerce benzer dava için emsal teşkil edebilir.",
-            "link": "https://www.bbc.com/news/articles/c747x7gz249o"
+            "baslik": "22 göçmen Yunanistan açıklarında altı gün denizde kaldıktan sonra öldü",
+            "ozet": "Hayatta kalanlar, ölen yolcuları denize atmek zorunda kaldıklarını söyledi. трагедия Akdeniz'deki göçmen krizini gözler önüne seriyor.",
+            "link": "https://www.bbc.com/news/articles/cnv8z1lvn8ro"
         },
         {
-            "baslik": "Uzun süren Ortadoğu çatışması havacılığı nasıl şekillendirecek?",
-            "ozet": "Körfez hub havalimanları ucuz uçuşları mümkün kılmıştı — şimdi gelecekleri belirsiz.",
-            "link": "https://www.bbc.com/news/articles/cn08x9lw0pzo"
+            "baslik": "Mısır'da dükkan ve restoranlara enerji krizi nedeniyle erken kapanma emri",
+            "ozet": "Orta Doğu çatışmasıyla bağlantılı olarak Mısır'da enerji krizi derinleşiyor. Yetkililer dükkan ve restoranların erken kapanmasını istedi.",
+            "link": "https://www.bbc.com/news/articles/c0rxz7ggv8go"
+        },
+        {
+            "baslik": "Bank of America, Epstein davası nedeniyle 72.5 milyon dolar ödeyecek",
+            "ozet": "Bankanın Jeffrey Epstein'ın insan ticareti operasyonunu kolaylaştırdığı iddiasıyla açılan davayı kabul etmeden ödeme yapmayı kabul etti.",
+            "link": "https://www.bbc.com/news/articles/cn2vj36yd12o"
+        },
+        {
+            "baslik": "Londra'da aşırı sağcılığa karşı binlerce kişi yürüdü",
+            "ozet": " 'Irkçılıkla değil cehaletle mücadele edin' ve 'Göçmenin yanında yaşamayı, Reform UK milletvekili yanında yaşamaktan daha çok tercih ederim' pankartları taşındı.",
+            "link": "https://www.bbc.com/news/articles/cm2rn03ryz8o"
         }
     ],
     "hollanda": [
         {
-            "baslik": "İslamolog Tariq Ramadan 18 yıl hapse mahkum edildi",
-            "ozet": "Paris'te üç tecavüz suçlamasından suçlu bulunan Ramadan, 2009-2016 arasında Paris ve Lyon'da kadınlara saldırdı.",
-            "link": "https://nos.nl/artikel/2607846"
+            "baslik": "Yaz saati başladı — saatler bir saat ileri alındı",
+            "ozet": "Hollanda bu hafta sonu yaz saatine geçti. İlkbahar ve yaz aylarında sabahları daha uzun süre karanlık, akşamları ise daha uzun süre aydınlık oluyor.",
+            "link": "https://nos.nl/artikel/2608222"
         },
         {
-            "baslik": "BM: Ortadoğu'daki mültecilere daha fazla para lazım",
-            "ozet": "İran'daki çatışma devam ederken mülteci ajansı yetersiz fondan bahsediyor.",
-            "link": "https://nos.nl/liveblog/2607468"
+            "baslik": "Zierikzee yakınlarında genç kadın kaza sonucu hayatını kaybetti",
+            "ozet": "Zierikzee ile Nieuwerkerk arasında üç araç bilinmeyen nedenle çarpıştı. Kaza sonucu genç bir kadın hayatını kaybetti.",
+            "link": "https://nos.nl/artikel/2608232"
         },
         {
-            "baslik": "Hollanda'da hastane ziyaretinde bir tutuklu daha kaçtı",
-            "ozet": "Roermond'daki hastaneden kaçan adam üç güvenlik görevlisini atlatarak firar etti.",
-            "link": "https://nos.nl/artikel/2607840"
+            "baslik": "En az yedi megadatamerkez inşaatı siyasi muhalefete rağmen devam ediyor",
+            "ozet": "Hem ulusal hem yerel siyaset büyük veri merkezlerine karşı çıkıyor, ancak yeni kurallar önümüzdeki yıllarda megadatamerkez sayısının en az ikiye katlanmasını engellemeyecek.",
+            "link": "https://nos.nl/artikel/2608192"
         },
         {
-            "baslik": "Yüksek yakıt fiyatları Hollanda sektörlerini vuruyor",
-            "ozet": "Ev bakımı, balıkçılık ve direksiyon dersi verenler İran savaşının yarattığı maliyet artışıyla mücadele ediyor.",
-            "link": "https://nos.nl/video/2607829"
+            "baslik": "Paris'te Bank of America'ya bombalı saldırı engellendi, İran savaşıyla bağlantılı",
+            "ozet": "17 yaşında bir genç gözaltına alındı. Yetkililer olayın devam eden İran savaşıyla bağlantılı olduğunu söylüyor.",
+            "link": "https://nos.nl/artikel/2608196"
+        },
+        {
+            "baslik": "Donör kuruluşları doğurganlık klinikleri hakkında ulusal soruşturma istiyor",
+            "ozet": "Hatalar yapan klinikler hakkında daha fazla hikaye ortaya çıkıyor. Donör kuruluşları ulusal çapta bir soruşturma istiyor.",
+            "link": "https://nos.nl/artikel/2608184"
         }
     ]
 }
@@ -131,20 +145,23 @@ def send_email():
     msg['From'] = EMAIL_FROM
     msg['To'] = EMAIL_TO
     
-    # Plain text version
     text = f"""GUNLUK BRIFING - {TODAY}
 
 DUNYADAN HABERLER:
-- Zelensky: ABD, Ukrayna'yı Rusya'ya toprak vermeye zorluyor
-- BM köleliği insanlığa karşı en ağır suç olarak tanıdı
-- Trump İran'ın müzakere istediğini iddia ediyor
-- Meta ve YouTube bağımlılık davasında sorumlu bulundu
+- Houthis İsrail'e ikinci füze saldırısı başlattı
+- Trump'ın içgüdüye dayalı savaş politikası işe yaramıyor
+- ABD genelinde 'No Kings' protestoları düzenlendi
+- 22 göçmen Yunanistan açıklarında öldü
+- Mısır'da enerji krizi nedeniyle dükkanlara erken kapanma emri
+- Bank of America Epstein davası için 72.5 milyon dolar ödeyecek
+- Londra'da binlerce kişi aşırı sağcılığa karşı yürüdü
 
 HOLLANDADAN HABERLER:
-- İslamolog Tariq Ramadan 18 yıl hapse mahkum edildi
-- BM: Ortadoğu'daki mültecilere daha fazla para lazım
-- Hollanda'da hastane ziyaretinde tutuklu kaçtı
-- Yüksek yakıt fiyatları sektörleri vuruyor
+- Yaz saati başladı, saatler ileri alındı
+- Zierikzee yakınlarında genç kadın kaza sonucu öldü
+- Megadatamerkez inşaatı siyasi muhalefete rağmen devam ediyor
+- Paris'te bombalı saldırı engellendi
+- Donör kuruluşları doğurganlık klinikleri soruşturması istiyor
 
 Blog: https://caferbeyai.github.io/blog/posts/{TODAY}.html
 """
