@@ -10,25 +10,24 @@ from email.mime.multipart import MIMEMultipart
 EMAIL_PASS = os.environ.get('EMAIL_PASS', 'bvmkbpgzfiaagccz')
 
 NOS_NEWS = [
-    ("Dresden'de II. Dünya Savaşı'ndan kalma bomba bulundu, binlerce kişi tahliye edildi.", "https://nos.nl/artikel/2605861"),
-    ("PSV kupası kutlamasında çanta ve meşale yasağı getirildi.", "https://nos.nl/artikel/2605860"),
-    ("Uzun elektrik kesintisinde tuvaletler kapatılmalı, 'kayan dışkı' riski var.", "https://nos.nl/artikel/2605858"),
-    ("Belediye seçimlerinde troll ordusu ve yabancı müdahale endişesi var.", "https://nos.nl/artikel/2605853"),
-    ("Enschede merkezinde fatbike yasaklandı, polis değil BOA'lar uygulayacak.", "https://nos.nl/artikel/2605851"),
-    ("NCTV casusluk davasında bugün karar çıkması bekleniyor.", "https://nos.nl/artikel/2605850"),
-    ("Yüzlerce evsiz barınma yeri için mahkemeye başvurdu.", "https://nos.nl/artikel/2605848"),
-    ("Rihanna'nın evine ateş açan kadın cinayete teşebbüsten tutuklandı.", "https://nos.nl/artikel/2605847"),
+    ("Megastar'lar konser için tek bir yerde toplanıyor: 'Hayranlar için çok az avantaj' - Harry Styles bu yıl Amsterdam'da on kez sahne alacak.", "https://nos.nl/artikel/2609009-megasterren-kiezen-voor-concerten-op-een-plek-weinig-voordelen-voor-fans"),
+    ("Wekdienst 4/4: BM İran üzerinde oylama yapabilir • PSV sahaya çıkıyor.", "https://nos.nl/artikel/2609005-wekdienst-4-4-vn-stemt-mogelijk-over-iran-bijna-kampioen-psv-in-actie"),
+    ("Isınan gaz fiyatlarıyla ısı pompaları yeniden ilgi görüyor.", "https://nos.nl/artikel/2609004-warmtepompen-weer-in-trek-door-gestegen-gasprijzen-mensen-wakker-geschud"),
+    ("Papa Leo, Good Friday'de Haç taşıdı - on yıllardır ilk kez bir Papa.", "https://nos.nl/artikel/2609003-paus-leo-draagt-kruis-tijdens-goede-vrijdag-kruisweg-eerste-paus-in-tientallen-jaren"),
+    ("Nijkerk'te İsrail merkezi yakınında patlama, 'hasar sınırlı kaldı'.", "https://nos.nl/artikel/2609000-explosie-bij-israelcentrum-in-nijkerk-schade-beperkt-gebleven"),
+    ("İran hava savunması ABD savaş uçağını düşürdü, mürettebat aranıyor.", "https://nos.nl/artikel/2608991-bemanningslid-neergehaald-amerikaans-gevechtsvliegtuig-gered-zoekactie-nog-gaande"),
+    ("Fransız savcılık, ırkçı yorumlar nedeniyle TV kanalı hakkında soruşturma başlattı.", "https://nos.nl/artikel/2608999-frans-om-begint-onderzoek-naar-tv-zender-om-mogelijk-racistische-opmerkingen"),
 ]
 
 BBC_NEWS = [
-    ("ABD, İran'a karşı yeni yaptırımlar açıkladı.", "https://www.bbc.com/news/world"),
-    ("İsrail Gazze'de yeni operasyon başlattı.", "https://www.bbc.com/news/world"),
-    ("Avrupa Birliği enerji krizinde yeni tedbirler aldı.", "https://www.bbc.com/news/world"),
-    ("Rusya-Ukrayna savaşında taraflar yeni saldırılar düzenledi.", "https://www.bbc.com/news/world"),
-    ("Çin ekonomisi beklenenden hızlı büyüyor.", "https://www.bbc.com/news/world"),
-    ("ABD'de enflasyon beklentilerin altında kaldı.", "https://www.bbc.com/news/world"),
-    ("Japonya'da deprem oldu, tsunami uyarısı yapıldı.", "https://www.bbc.com/news/world"),
-    ("Brezilya'da seller nedeniyle binlerce ev tahliye edildi.", "https://www.bbc.com/news/world"),
+    ("İran ve ABD, düşürülen savaş uçağındaki kayıp Amerikalı mürettebatı arıyor.", "https://www.bbc.com/news/live/cm29zmpdj3vt"),
+    ("Macaristan'da 16 yıl sonra Orbán yeniden sandıkta - seçimler 9 gün sonra.", "https://www.bbc.com/news/articles/czd7y1n3jyjo"),
+    ("Trump savunma için 1.5 trilyon dolar istiyor, iç harcama kesintileriyle birlikte.", "https://www.bbc.com/news/articles/crr1q4kjvn2o"),
+    ("Küba, ABD baskısı altında 2.000'den fazla mahkumu serbest bırakmaya başladı.", "https://www.bbc.com/news/articles/cwy3r3w4zl8o"),
+    ("ABD, Afrika kökenli sekiz kişiyi Uganda'ya sınır dışı etti.", "https://www.bbc.com/news/articles/c8ej43z8yw4o"),
+    ("İtalya'nın ünlü Uffizi galerisi siber saldırı iddialarını kabul etti ama güvenlik ihlali reddetti.", "https://www.bbc.com/news/articles/cy51wzeq6g5o"),
+    ("Pete Hegseth ABD Ordusu'nun en üst düzey generalini istifaya çağırdı.", "https://www.bbc.com/news/articles/cn8d63v058zo"),
+    ("Burkina Faso'nun askeri lideri: 'Demokrasiyi unutun' dedi.", "https://www.bbc.com/news/articles/cly0zp1xgz3o"),
 ]
 
 def build_email():
@@ -42,12 +41,12 @@ def build_email():
 <body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px;">
   <h1 style="border-bottom: 3px solid #e63946; padding-bottom: 10px;">📰 GÜNLÜK BRİFİNG - {date}</h1>
   
-  <h2 style="color: #007acc;">🇳🇱 HOLLANDADAN HABERLER</h2>
+  <h2 style="color: #007cc7;">🇳🇱 HOLLANDADAN HABERLER</h2>
   <ul style="padding-left: 20px;">
     {nos_html}
   </ul>
   
-  <h2 style="color: #007acc;">🌍 DÜNYADAN HABERLER</h2>
+  <h2 style="color: #007cc7;">🌍 DÜNYADAN HABERLER</h2>
   <ul style="padding-left: 20px;">
     {bbc_html}
   </ul>
