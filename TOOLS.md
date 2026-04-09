@@ -83,6 +83,7 @@ brv push                   # Cloud'a gönder (login gerekli)
 ### Common Issues
 - Remote has new commits → `git pull origin main --allow-unrelated-histories` or `git reset --hard origin/main`
 - Both main and master branches → sync them: `git checkout master && git reset --hard main && git push origin master --force`
+- GitHub Pages 404 after push → Wait 1-2 min, cache delay is normal
 
 ## ⚠️ BLOG POST FORMATI - ÇOK ÖNEMLİ!
 
