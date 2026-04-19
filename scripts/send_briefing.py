@@ -10,24 +10,24 @@ from email.mime.multipart import MIMEMultipart
 EMAIL_PASS = os.environ.get('EMAIL_PASS', 'bvmkbpgzfiaagccz')
 
 NOS_NEWS = [
-    ("ABD ve İran 2 haftalık ateşkes ve Hormuz Boğazı'nın yeniden açılması konusunda anlaştı. İran, saldırılar durdurulursa boğazı açmayı kabul etti.", "https://nos.nl/artikel/2609553-vs-en-iran-akkoord-over-staakt-het-vuren-van-2-weken-straat-hormuz-gaat-weer-open"),
-    ("Rutte Trump'ın yanına gidiyor - Weski davasında pleymoya başvurulacak.", "https://nos.nl/artikel/2609559-wekdienst-8-4-rutte-langs-bij-trump-pleidooi-in-zaak-tegen-inez-weski"),
-    ("Tour of Vlaanderen'de kırmızı ışık ihlali yapan 54 bisikletçi tespit edildi. Para cezası 400-5000 euro arasında.", "https://nos.nl/artikel/2609557-54-wielrenners-opgespoord-die-rood-licht-negeerden-tijdens-ronde-van-vlaanderen"),
-    ("Irak'ta kaçırılan Amerikalı gazeteci serbest bırakıldı. Kittleson 31 Mart'ta Bağdat'ta bir İran yanlısı milis tarafından alınmıştı.", "https://nos.nl/artikel/2609556-in-irak-ontvoerde-amerikaanse-journalist-vrijgelaten"),
-    ("Helmond'daki bir mezbahada iş kazası: bir işçi hayatını kaybetti. Çalışma Denetimi soruşturma başlattı.", "https://nos.nl/artikel/2609555-medewerker-van-slachthuis-in-helmond-overleden-bij-bedrijfsongeval"),
-    ("Janine Abbring, Zomergasten'ın son sezonunu sunacak. Programı daha önce 2017-2022 arasında da sunmuştu.", "https://nos.nl/artikel/2609554-janine-abbring-presenteert-laatste-seizoen-zomergasten"),
-    ("Berendsen ve Van Weel ilk AB dışı ziyaret olarak Fas'a gitti. Fas ile ilişkiler yeni hükümet için stratejik öneme sahip.", "https://nos.nl/artikel/2609552-berendsen-en-van-weel-in-marokko-onderstreept-goede-banden"),
+    ("AZ taraftarları kubbe finali sonrası çılgına döndü. Taraftarlar beklemediği kadar farklı bir galibiyetle sevindi.", "https://nos.nl/video/2611153-az-supporters-uitzinnig-na-winst-bekerfinale"),
+    ("İran muhalefeti de Iranlıları tehdit ediyor: Pahlavi'nin 'demokrat' adı altında da baskı var. muhalefet içinde bile ciddi sindirme harekatı sürüyor.", "https://nos.nl/artikel/2611106-iraniers-worden-van-alle-kanten-bedreigd-ook-uit-naam-van-democraat-pahlavi"),
+    ("İran yeni görüşmelere katılmıyor • Trump: heyet Islamabad'a gidiyor. Ortadoğu'da sular durulmuyor.", "https://nos.nl/liveblog/2610235-iran-doet-niet-mee-aan-nieuwe-gesprekken-trump-delegatie-onderweg-naar-islamabad"),
+    ("Bulgaristan seçimleri: Pro-Rus eski Cumhurbaşkanı Radev zafere koşuyor. Exit poll'e göre %39 oy alıyor.", "https://nos.nl/artikel/2611144-pro-russische-oud-president-radev-stevent-af-op-verkiezingszege-bulgarije"),
+    ("Hollanda'da önümüzdeki günler güneşli ve kuru hava. İlkbahar sıcaklıkları artıyor.", "https://nos.nl/artikel/2611143-komende-dagen-veel-zon-en-vrijwel-droog-past-in-trend"),
+    ("Groningen Eyaleti çiftçilere karşı suç duyurusunda bulundu. BBB'lı çoğunluk bu hafta bir çiftçinin mülküne el koyma lehinde oy kullandı.", "https://nos.nl/artikel/2611115-provincie-groningen-doet-aangifte-tegen-farmers-defence-force"),
+    ("Louisiana'da aile içi kavgadan sonra 8 çocuk öldürüldü. Şüpheli polis tarafından kovalamaca sonrası öldürüldü.", "https://nos.nl/artikel/2611126-acht-kinderen-gedood-bij-schietpartij-in-louisiana-na-huiselijke-ruzie"),
+    ("Avrupa Komisyonu yüksek enerji fiyatlarıyla mücadele için sabit evden çalışma günü istiyor.", "https://nos.nl/artikel/2611140-ec-voert-veel-zon-en-vrijwel-droog-op"),
 ]
 
 BBC_NEWS = [
-    ("İran ve ABD koşullu 2 haftalık ateşkes ve Hormuz Boğazı'nın açılması konusunda anlaştı. Pakistan Cuma günü tarafları bir araya getirecek. İsrail ateşkesi desteklediğini ama 'Lübnan'ı kapsamadığını söyledi.", "https://www.bbc.com/news/live/c5yw4g3z7qgt"),
-    ("Trump: İran ateşkesi kısmi bir zafer ama yüksek maliyetle. Petrol fiyatları ateşkes haberiyle düştü.", "https://www.bbc.com/news/articles/cwyvp55xrlro"),
-    ("Pakistan İran ve ABD arasındaki ateşkesi nasıl sağladı? Tarihsel bağlar ve karmaşık süreç anlatılıyor.", "https://www.bbc.com/news/articles/cj401qvgg19o"),
-    ("Trump destekli Cumhuriyetçi Clay Fuller, Marjorie Taylor Greene'in boşalan koltuğu için yapılan seçimleri kazandı.", "https://www.bbc.com/news/articles/c8r40erdj6mo"),
-    ("İran Savaşı: Hormuz Boğazı neden bu kadar önemli? Küresel petrol ticaretinin %20'si bu geçişten yapılıyor.", "https://www.bbc.com/news/articles/c78n6p09pzno"),
-    ("Trump savunma bütçesi için 1.5 trilyon dolar istiyor, iç harcama kesintileriyle dengelenmesi planlanıyor.", "https://www.bbc.com/news/articles/crr1q4kjvn2o"),
-    ("Macaristan'da 9 gün sonra seçimler: Orbán 16 yıl sonra yeniden sandıkta.", "https://www.bbc.com/news/articles/czd7y1n3jyjo"),
-    ("Küba, ABD baskısı altında 2.000'den fazla mahkumu serbest bırakmaya başladı.", "https://www.bbc.com/news/articles/cwy3r3w4zl8o"),
+    ("ABD müzakerecileri Pakistan'a dönüyor — Trump İran'ın altyapısına tehditlerini yineledi. BBC'ye Beyaz Saray'dan bir yetkili ABD heyetinin JD Vance liderliğinde gideceğini söyledi.", "https://www.bbc.com/news/live/cly90l3ln30t"),
+    ("Louisiana'da 8 çocuk öldürüldü: 1-14 yaş arası çocuklar, Shreveport'ta aile içi saldırıda hayatını kaybetti.", "https://www.bbc.com/news/articles/c0q9v1p2dd2o"),
+    ("Zelensky Biden'ın Rus yaptırımları muafiyetini uzatmasını kınadı. ABD, İran ile savaş nedeniyle enerji krizini hafifletmek için muafiyeti savunuyor.", "https://www.bbc.com/news/articles/c248m3z49j1o"),
+    ("Çin'de yarı maraton: İnsanlara karşı robotlar yarıştı. Pekin'de yarışan kazanan robot insan rakiplerini bıraktı.", "https://www.bbc.com/news/videos/cz0e54yrppno"),
+    ("Ukrayna polis şefi istifa etti: subaylar ölümcül silahlı saldırıda kaçtıkları iddiasıyla soruşturuluyor.", "https://www.bbc.com/news/articles/c8ejn778j4do"),
+    ("Avusturya'da HiPP bebek mamasasında zehirli madde: ailesi ölüm riski konusunda uyarıldı.", "https://www.bbc.com/news/articles/cvg07lq5ql4o"),
+    ("Paris'te II. Dünya Savaşı bombasi imha edildi: 450 metre çaplı alandaki sakinler tahliye edildi.", "https://www.bbc.com/news/articles/cwy3r3w4zl8o"),
 ]
 
 def build_email():
