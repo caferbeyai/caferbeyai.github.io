@@ -10,24 +10,24 @@ from email.mime.multipart import MIMEMultipart
 EMAIL_PASS = os.environ.get('EMAIL_PASS', 'bvmkbpgzfiaagccz')
 
 NOS_NEWS = [
-    ("Megastar'lar konser için tek bir yerde toplanıyor: 'Hayranlar için çok az avantaj' - Harry Styles bu yıl Amsterdam'da on kez sahne alacak.", "https://nos.nl/artikel/2609009-megasterren-kiezen-voor-concerten-op-een-plek-weinig-voordelen-voor-fans"),
-    ("Wekdienst 4/4: BM İran üzerinde oylama yapabilir • PSV sahaya çıkıyor.", "https://nos.nl/artikel/2609005-wekdienst-4-4-vn-stemt-mogelijk-over-iran-bijna-kampioen-psv-in-actie"),
-    ("Isınan gaz fiyatlarıyla ısı pompaları yeniden ilgi görüyor.", "https://nos.nl/artikel/2609004-warmtepompen-weer-in-trek-door-gestegen-gasprijzen-mensen-wakker-geschud"),
-    ("Papa Leo, Good Friday'de Haç taşıdı - on yıllardır ilk kez bir Papa.", "https://nos.nl/artikel/2609003-paus-leo-draagt-kruis-tijdens-goede-vrijdag-kruisweg-eerste-paus-in-tientallen-jaren"),
-    ("Nijkerk'te İsrail merkezi yakınında patlama, 'hasar sınırlı kaldı'.", "https://nos.nl/artikel/2609000-explosie-bij-israelcentrum-in-nijkerk-schade-beperkt-gebleven"),
-    ("İran hava savunması ABD savaş uçağını düşürdü, mürettebat aranıyor.", "https://nos.nl/artikel/2608991-bemanningslid-neergehaald-amerikaans-gevechtsvliegtuig-gered-zoekactie-nog-gaande"),
-    ("Fransız savcılık, ırkçı yorumlar nedeniyle TV kanalı hakkında soruşturma başlattı.", "https://nos.nl/artikel/2608999-frans-om-begint-onderzoek-naar-tv-zender-om-mogelijk-racistische-opmerkingen"),
+    ("AZ taraftarları kubbe finali sonrası çılgına döndü. Taraftarlar beklemediği kadar farklı bir galibiyetle sevindi.", "https://nos.nl/video/2611153-az-supporters-uitzinnig-na-winst-bekerfinale"),
+    ("İran muhalefeti de Iranlıları tehdit ediyor: Pahlavi'nin 'demokrat' adı altında da baskı var. muhalefet içinde bile ciddi sindirme harekatı sürüyor.", "https://nos.nl/artikel/2611106-iraniers-worden-van-alle-kanten-bedreigd-ook-uit-naam-van-democraat-pahlavi"),
+    ("İran yeni görüşmelere katılmıyor • Trump: heyet Islamabad'a gidiyor. Ortadoğu'da sular durulmuyor.", "https://nos.nl/liveblog/2610235-iran-doet-niet-mee-aan-nieuwe-gesprekken-trump-delegatie-onderweg-naar-islamabad"),
+    ("Bulgaristan seçimleri: Pro-Rus eski Cumhurbaşkanı Radev zafere koşuyor. Exit poll'e göre %39 oy alıyor.", "https://nos.nl/artikel/2611144-pro-russische-oud-president-radev-stevent-af-op-verkiezingszege-bulgarije"),
+    ("Hollanda'da önümüzdeki günler güneşli ve kuru hava. İlkbahar sıcaklıkları artıyor.", "https://nos.nl/artikel/2611143-komende-dagen-veel-zon-en-vrijwel-droog-past-in-trend"),
+    ("Groningen Eyaleti çiftçilere karşı suç duyurusunda bulundu. BBB'lı çoğunluk bu hafta bir çiftçinin mülküne el koyma lehinde oy kullandı.", "https://nos.nl/artikel/2611115-provincie-groningen-doet-aangifte-tegen-farmers-defence-force"),
+    ("Louisiana'da aile içi kavgadan sonra 8 çocuk öldürüldü. Şüpheli polis tarafından kovalamaca sonrası öldürüldü.", "https://nos.nl/artikel/2611126-acht-kinderen-gedood-bij-schietpartij-in-louisiana-na-huiselijke-ruzie"),
+    ("Avrupa Komisyonu yüksek enerji fiyatlarıyla mücadele için sabit evden çalışma günü istiyor.", "https://nos.nl/artikel/2611140-ec-voert-veel-zon-en-vrijwel-droog-op"),
 ]
 
 BBC_NEWS = [
-    ("İran ve ABD, düşürülen savaş uçağındaki kayıp Amerikalı mürettebatı arıyor.", "https://www.bbc.com/news/live/cm29zmpdj3vt"),
-    ("Macaristan'da 16 yıl sonra Orbán yeniden sandıkta - seçimler 9 gün sonra.", "https://www.bbc.com/news/articles/czd7y1n3jyjo"),
-    ("Trump savunma için 1.5 trilyon dolar istiyor, iç harcama kesintileriyle birlikte.", "https://www.bbc.com/news/articles/crr1q4kjvn2o"),
-    ("Küba, ABD baskısı altında 2.000'den fazla mahkumu serbest bırakmaya başladı.", "https://www.bbc.com/news/articles/cwy3r3w4zl8o"),
-    ("ABD, Afrika kökenli sekiz kişiyi Uganda'ya sınır dışı etti.", "https://www.bbc.com/news/articles/c8ej43z8yw4o"),
-    ("İtalya'nın ünlü Uffizi galerisi siber saldırı iddialarını kabul etti ama güvenlik ihlali reddetti.", "https://www.bbc.com/news/articles/cy51wzeq6g5o"),
-    ("Pete Hegseth ABD Ordusu'nun en üst düzey generalini istifaya çağırdı.", "https://www.bbc.com/news/articles/cn8d63v058zo"),
-    ("Burkina Faso'nun askeri lideri: 'Demokrasiyi unutun' dedi.", "https://www.bbc.com/news/articles/cly0zp1xgz3o"),
+    ("ABD müzakerecileri Pakistan'a dönüyor — Trump İran'ın altyapısına tehditlerini yineledi. BBC'ye Beyaz Saray'dan bir yetkili ABD heyetinin JD Vance liderliğinde gideceğini söyledi.", "https://www.bbc.com/news/live/cly90l3ln30t"),
+    ("Louisiana'da 8 çocuk öldürüldü: 1-14 yaş arası çocuklar, Shreveport'ta aile içi saldırıda hayatını kaybetti.", "https://www.bbc.com/news/articles/c0q9v1p2dd2o"),
+    ("Zelensky Biden'ın Rus yaptırımları muafiyetini uzatmasını kınadı. ABD, İran ile savaş nedeniyle enerji krizini hafifletmek için muafiyeti savunuyor.", "https://www.bbc.com/news/articles/c248m3z49j1o"),
+    ("Çin'de yarı maraton: İnsanlara karşı robotlar yarıştı. Pekin'de yarışan kazanan robot insan rakiplerini bıraktı.", "https://www.bbc.com/news/videos/cz0e54yrppno"),
+    ("Ukrayna polis şefi istifa etti: subaylar ölümcül silahlı saldırıda kaçtıkları iddiasıyla soruşturuluyor.", "https://www.bbc.com/news/articles/c8ejn778j4do"),
+    ("Avusturya'da HiPP bebek mamasasında zehirli madde: ailesi ölüm riski konusunda uyarıldı.", "https://www.bbc.com/news/articles/cvg07lq5ql4o"),
+    ("Paris'te II. Dünya Savaşı bombasi imha edildi: 450 metre çaplı alandaki sakinler tahliye edildi.", "https://www.bbc.com/news/articles/cwy3r3w4zl8o"),
 ]
 
 def build_email():
