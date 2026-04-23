@@ -14,3 +14,6 @@
 /bin/sh: 1: /home/caferbey/.openclaw/workspace/scripts/daily-tasks.sh: Permission denied
 /bin/sh: 1: /home/caferbey/.openclaw/workspace/scripts/daily-tasks.sh: Permission denied
 /bin/sh: 1: /home/caferbey/.openclaw/workspace/scripts/daily-tasks.sh: Permission denied
+/bin/sh: 1: /home/caferbey/.openclaw/workspace/scripts/daily-tasks.sh: Permission denied
+=== Caferbey Daily Tasks: 2026-04-22 ===
+ERROR: GITHUB_TOKEN and EMAIL_PASS must be set
