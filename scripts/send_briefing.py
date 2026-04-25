@@ -1,85 +1,186 @@
 #!/usr/bin/env python3
-"""Daily briefing: NOS + BBC - Turkish summary with links."""
+"""Daily briefing: Fetches fresh news from NU.nl and BBC, sends email with Turkish translation."""
 
 import os
+import re
 import smtplib
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import urllib.request
+from deep_translator import GoogleTranslator
 
 EMAIL_PASS = os.environ.get('EMAIL_PASS', 'bvmkbpgzfiaagccz')
 
-NOS_NEWS = [
-    ("AZ taraftarları kubbe finali sonrası çılgına döndü. Taraftarlar beklemediği kadar farklı bir galibiyetle sevindi.", "https://nos.nl/video/2611153-az-supporters-uitzinnig-na-winst-bekerfinale"),
-    ("İran muhalefeti de Iranlıları tehdit ediyor: Pahlavi'nin 'demokrat' adı altında da baskı var. muhalefet içinde bile ciddi sindirme harekatı sürüyor.", "https://nos.nl/artikel/2611106-iraniers-worden-van-alle-kanten-bedreigd-ook-uit-naam-van-democraat-pahlavi"),
-    ("İran yeni görüşmelere katılmıyor • Trump: heyet Islamabad'a gidiyor. Ortadoğu'da sular durulmuyor.", "https://nos.nl/liveblog/2610235-iran-doet-niet-mee-aan-nieuwe-gesprekken-trump-delegatie-onderweg-naar-islamabad"),
-    ("Bulgaristan seçimleri: Pro-Rus eski Cumhurbaşkanı Radev zafere koşuyor. Exit poll'e göre %39 oy alıyor.", "https://nos.nl/artikel/2611144-pro-russische-oud-president-radev-stevent-af-op-verkiezingszege-bulgarije"),
-    ("Hollanda'da önümüzdeki günler güneşli ve kuru hava. İlkbahar sıcaklıkları artıyor.", "https://nos.nl/artikel/2611143-komende-dagen-veel-zon-en-vrijwel-droog-past-in-trend"),
-    ("Groningen Eyaleti çiftçilere karşı suç duyurusunda bulundu. BBB'lı çoğunluk bu hafta bir çiftçinin mülküne el koyma lehinde oy kullandı.", "https://nos.nl/artikel/2611115-provincie-groningen-doet-aangifte-tegen-farmers-defence-force"),
-    ("Louisiana'da aile içi kavgadan sonra 8 çocuk öldürüldü. Şüpheli polis tarafından kovalamaca sonrası öldürüldü.", "https://nos.nl/artikel/2611126-acht-kinderen-gedood-bij-schietpartij-in-louisiana-na-huiselijke-ruzie"),
-    ("Avrupa Komisyonu yüksek enerji fiyatlarıyla mücadele için sabit evden çalışma günü istiyor.", "https://nos.nl/artikel/2611140-ec-voert-veel-zon-en-vrijwel-droog-op"),
-]
+# Initialize translator
+nl_to_tr = GoogleTranslator(source='nl', target='tr')
+en_to_tr = GoogleTranslator(source='en', target='tr')
 
-BBC_NEWS = [
-    ("ABD müzakerecileri Pakistan'a dönüyor — Trump İran'ın altyapısına tehditlerini yineledi. BBC'ye Beyaz Saray'dan bir yetkili ABD heyetinin JD Vance liderliğinde gideceğini söyledi.", "https://www.bbc.com/news/live/cly90l3ln30t"),
-    ("Louisiana'da 8 çocuk öldürüldü: 1-14 yaş arası çocuklar, Shreveport'ta aile içi saldırıda hayatını kaybetti.", "https://www.bbc.com/news/articles/c0q9v1p2dd2o"),
-    ("Zelensky Biden'ın Rus yaptırımları muafiyetini uzatmasını kınadı. ABD, İran ile savaş nedeniyle enerji krizini hafifletmek için muafiyeti savunuyor.", "https://www.bbc.com/news/articles/c248m3z49j1o"),
-    ("Çin'de yarı maraton: İnsanlara karşı robotlar yarıştı. Pekin'de yarışan kazanan robot insan rakiplerini bıraktı.", "https://www.bbc.com/news/videos/cz0e54yrppno"),
-    ("Ukrayna polis şefi istifa etti: subaylar ölümcül silahlı saldırıda kaçtıkları iddiasıyla soruşturuluyor.", "https://www.bbc.com/news/articles/c8ejn778j4do"),
-    ("Avusturya'da HiPP bebek mamasasında zehirli madde: ailesi ölüm riski konusunda uyarıldı.", "https://www.bbc.com/news/articles/cvg07lq5ql4o"),
-    ("Paris'te II. Dünya Savaşı bombasi imha edildi: 450 metre çaplı alandaki sakinler tahliye edildi.", "https://www.bbc.com/news/articles/cwy3r3w4zl8o"),
-]
+def translate_to_turkish(text, lang='nl'):
+    """Translate text to Turkish using deep-translator."""
+    try:
+        if lang == 'nl':
+            return nl_to_tr.translate(text)
+        else:
+            return en_to_tr.translate(text)
+    except Exception as e:
+        print(f"Translation error: {e}")
+        return text
 
-def build_email():
-    date = datetime.now().strftime('%Y-%m-%d')
+def fetch_nu_news():
+    """Fetch latest news from NU.nl RSS feed."""
+    try:
+        url = "https://www.nu.nl/rss"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=15) as response:
+            content = response.read().decode('utf-8')
+        
+        news = []
+        items = re.findall(r'<item>(.*?)</item>', content, re.DOTALL)
+        for item in items[:10]:
+            title_match = re.search(r'<title>(.*?)</title>', item)
+            link_match = re.search(r'<link>(.*?)</link>', item)
+            if title_match and link_match:
+                title = title_match.group(1).strip()
+                title = re.sub(r'<!\[CDATA\[|\]\]>', '', title)
+                link = link_match.group(1).strip()
+                # Translate Dutch to Turkish
+                summary = translate_to_turkish(title, 'nl')
+                news.append((summary, link))
+        
+        return news
+    except Exception as e:
+        print(f"NU.nl fetch error: {e}")
+        return []
+
+def fetch_bbc_news():
+    """Fetch latest news from BBC RSS feed."""
+    try:
+        url = "https://feeds.bbci.co.uk/news/rss.xml"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=15) as response:
+            content = response.read().decode('utf-8')
+        
+        news = []
+        items = re.findall(r'<item>(.*?)</item>', content, re.DOTALL)
+        for item in items[:10]:
+            title_match = re.search(r'<title>(.*?)</title>', item)
+            link_match = re.search(r'<link>(.*?)</link>', item)
+            if title_match and link_match:
+                title = title_match.group(1).strip()
+                title = re.sub(r'<!\[CDATA\[|\]\]>', '', title)
+                link = link_match.group(1).strip()
+                # Translate English to Turkish
+                summary = translate_to_turkish(title, 'en')
+                news.append((summary, link))
+        
+        return news
+    except Exception as e:
+        print(f"BBC fetch error: {e}")
+        return []
+
+def build_email(nu_news, bbc_news):
+    """Build HTML email with news."""
+    date = datetime.now().strftime('%Y-%m-%d %H:%M')
     
-    nos_html = "".join([f'<li>{summary} <a href="{link}">[link]</a></li>' for summary, link in NOS_NEWS])
-    bbc_html = "".join([f'<li>{summary} <a href="{link}">[link]</a></li>' for summary, link in BBC_NEWS])
+    nu_html = ""
+    for summary, link in nu_news:
+        nu_html += f'<li><a href="{link}" target="_blank">{summary}</a></li>\n'
+    
+    bbc_html = ""
+    for summary, link in bbc_news:
+        bbc_html += f'<li><a href="{link}" target="_blank">{summary}</a></li>\n'
+    
+    if not nu_news:
+        nu_html = "<li>Sistem hatası - NU.nl haberleri alınamadı</li>\n"
+    if not bbc_news:
+        bbc_html = "<li>Sistem hatası - BBC haberleri alınamadı</li>\n"
     
     html = f"""<!DOCTYPE html>
 <html>
-<body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <h1 style="border-bottom: 3px solid #e63946; padding-bottom: 10px;">📰 GÜNLÜK BRİFİNG - {date}</h1>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 650px; margin: 0 auto; padding: 20px; }}
+    h1 {{ border-bottom: 3px solid #e63946; padding-bottom: 10px; }}
+    h2 {{ color: #007cc7; border-bottom: 2px solid #007cc7; padding-bottom: 8px; margin-top: 24px; }}
+    a {{ color: #007cc7; text-decoration: none; }}
+    a:hover {{ text-decoration: underline; }}
+    ul {{ padding-left: 20px; }}
+    li {{ margin-bottom: 10px; }}
+    .footer {{ margin-top: 30px; font-size: 0.85em; color: #666; border-top: 1px solid #ddd; padding-top: 15px; }}
+    .meta {{ color: #888; font-size: 0.9em; }}
+    .blog-link {{ background: #f0f8ff; padding: 15px; border-radius: 8px; margin-top: 20px; }}
+  </style>
+</head>
+<body>
+  <h1>📰 GÜNLÜK BRİFİNG</h1>
+  <p class="meta">{date}</p>
   
-  <h2 style="color: #007cc7;">🇳🇱 HOLLANDADAN HABERLER</h2>
-  <ul style="padding-left: 20px;">
-    {nos_html}
+  <h2>🇳🇱 HOLLANDADAN HABERLER (NU.nl)</h2>
+  <ul>
+    {nu_html}
   </ul>
   
-  <h2 style="color: #007cc7;">🌍 DÜNYADAN HABERLER</h2>
-  <ul style="padding-left: 20px;">
+  <h2>🌍 DÜNYADAN HABERLER (BBC)</h2>
+  <ul>
     {bbc_html}
   </ul>
   
-  <p style="color: #666; font-size: 0.9em;">🤖 Caferbey AI</p>
+  <div class="blog-link">
+    <strong>📝 Blog:</strong> <a href="https://caferbeyai.github.io/">caferbeyai.github.io</a>
+  </div>
+  
+  <div class="footer">
+    🤖 Caferbey AI tarafından otomatik oluşturuldu<br>
+    <small>Kaynaklar: NU.nl, BBC News</small>
+  </div>
 </body>
 </html>"""
     return html
 
 def send_email(html_content):
+    """Send email via Gmail SMTP."""
     try:
-        date = datetime.now().strftime('%Y-%m-%d')
         msg = MIMEMultipart('alternative')
         msg['From'] = 'Caferbey AI <caferbeyai@gmail.com>'
-        msg['To'] = 'Omurden <omurdenden@gmail.com>'
-        msg['Subject'] = f"📰 Günlük Brifing - {date}"
+        msg['To'] = 'omurdenden@gmail.com'
+        msg['Subject'] = f"📰 Günlük Brifing - {datetime.now().strftime('%Y-%m-%d')}"
         
         msg.attach(MIMEText(html_content, 'html', 'utf-8'))
         
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.login('caferbeyai@gmail.com', EMAIL_PASS)
-        server.sendmail('caferbeyai@gmail.com', 'omurdenden@gmail.com', msg.as_string())
-        server.quit()
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login('caferbeyai@gmail.com', EMAIL_PASS)
+            server.sendmail('caferbeyai@gmail.com', 'omurdenden@gmail.com', msg.as_string())
         
-        print("✅ Email sent!")
+        print(f"✅ Email sent successfully!")
         return True
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"❌ Email error: {e}")
         return False
 
-if __name__ == "__main__":
-    html = build_email()
-    send_email(html)
+def main():
+    print("📰 Fetching NU.nl news...")
+    nu_news = fetch_nu_news()
+    print(f"   Found {len(nu_news)} NU.nl articles")
     
+    print("🌍 Fetching BBC news...")
+    bbc_news = fetch_bbc_news()
+    print(f"   Found {len(bbc_news)} BBC articles")
+    
+    html = build_email(nu_news, bbc_news)
+    
+    # Save latest for debugging
     with open('/tmp/briefing-latest.html', 'w', encoding='utf-8') as f:
         f.write(html)
+    
+    success = send_email(html)
+    
+    # Also save log
+    log_file = '/home/caferbey/.openclaw/workspace/briefing.log'
+    with open(log_file, 'a') as f:
+        f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M')} - NU:{len(nu_news)} BBC:{len(bbc_news)} - {'OK' if success else 'FAIL'}\n")
+
+if __name__ == "__main__":
+    main()
