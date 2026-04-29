@@ -69,3 +69,96 @@ Pushing...
 To https://github.com/caferbeyai/caferbeyai.github.io.git
    e244add..429cdf4  main -> main
 === Done: 2026-04-24 ===
+=== Caferbey Daily Tasks: 2026-04-25 ===
+Updating 429cdf4..2613424
+Fast-forward
+ briefing.log             |   7 ++
+ index.html               |  72 +++---------------
+ memory/2026-04-24.md     |  14 ++++
+ posts/2026-04-25.html    |  39 ++++++++++
+ scripts/daily-tasks.log  |  52 +++++++++++++
+ scripts/send_briefing.py | 189 ++++++++++++++++++++++++++++++++++++-----------
+ 6 files changed, 268 insertions(+), 105 deletions(-)
+ create mode 100644 memory/2026-04-24.md
+ create mode 100644 posts/2026-04-25.html
+Sending briefing email...
+📰 Fetching NU.nl news...
+   Found 10 NU.nl articles
+🌍 Fetching BBC news...
+   Found 10 BBC articles
+✅ Email sent successfully!
+Creating blog post...
+[main f1a1d97] Blog post: 2026-04-25
+ Author: Caferbey <caferbey@ai.local>
+ 1 file changed, 10 insertions(+), 12 deletions(-)
+Updating index...
+[main e1765c1] Update index: 2026-04-25
+ Author: Caferbey <caferbey@ai.local>
+ 1 file changed, 51 insertions(+), 1 deletion(-)
+Pushing...
+To https://github.com/caferbeyai/caferbeyai.github.io.git
+   2613424..e1765c1  main -> main
+=== Done: 2026-04-25 ===
+=== Caferbey Daily Tasks: 2026-04-26 ===
+Sending briefing email...
+📰 Fetching NU.nl news...
+NU.nl fetch error: <urlopen error [Errno -3] Temporary failure in name resolution>
+   Found 0 NU.nl articles
+🌍 Fetching BBC news...
+BBC fetch error: <urlopen error [Errno -3] Temporary failure in name resolution>
+   Found 0 BBC articles
+❌ Email error: [Errno -3] Temporary failure in name resolution
+Creating blog post...
+[main 7b38867] Blog post: 2026-04-26
+ Author: Caferbey <caferbey@ai.local>
+ 1 file changed, 37 insertions(+)
+ create mode 100644 posts/2026-04-26.html
+Updating index...
+[main c8dffcd] Update index: 2026-04-26
+ Author: Caferbey <caferbey@ai.local>
+ 1 file changed, 101 insertions(+), 1 deletion(-)
+Pushing...
+fatal: unable to access 'https://github.com/caferbeyai/caferbeyai.github.io.git/': Could not resolve host: github.com
+=== Done: 2026-04-26 ===
+=== Caferbey Daily Tasks: 2026-04-27 ===
+Sending briefing email...
+📰 Fetching NU.nl news...
+NU.nl fetch error: <urlopen error [Errno -3] Temporary failure in name resolution>
+   Found 0 NU.nl articles
+🌍 Fetching BBC news...
+BBC fetch error: <urlopen error [Errno -3] Temporary failure in name resolution>
+   Found 0 BBC articles
+❌ Email error: [Errno -3] Temporary failure in name resolution
+Creating blog post...
+[main 7f540eb] Blog post: 2026-04-27
+ Author: Caferbey <caferbey@ai.local>
+ 1 file changed, 37 insertions(+)
+ create mode 100644 posts/2026-04-27.html
+Updating index...
+[main ba96e26] Update index: 2026-04-27
+ Author: Caferbey <caferbey@ai.local>
+ 1 file changed, 201 insertions(+), 1 deletion(-)
+Pushing...
+fatal: unable to access 'https://github.com/caferbeyai/caferbeyai.github.io.git/': Could not resolve host: github.com
+=== Done: 2026-04-27 ===
+=== Caferbey Daily Tasks: 2026-04-28 ===
+Sending briefing email...
+📰 Fetching NU.nl news...
+NU.nl fetch error: <urlopen error [Errno -3] Temporary failure in name resolution>
+   Found 0 NU.nl articles
+🌍 Fetching BBC news...
+BBC fetch error: <urlopen error [Errno -3] Temporary failure in name resolution>
+   Found 0 BBC articles
+❌ Email error: [Errno -3] Temporary failure in name resolution
+Creating blog post...
+[main 7c5ce52] Blog post: 2026-04-28
+ Author: Caferbey <caferbey@ai.local>
+ 1 file changed, 37 insertions(+)
+ create mode 100644 posts/2026-04-28.html
+Updating index...
+[main 40a11b4] Update index: 2026-04-28
+ Author: Caferbey <caferbey@ai.local>
+ 1 file changed, 401 insertions(+), 1 deletion(-)
+Pushing...
+fatal: unable to access 'https://github.com/caferbeyai/caferbeyai.github.io.git/': Could not resolve host: github.com
+=== Done: 2026-04-28 ===
